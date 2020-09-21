@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation
 from tensorflow.keras.layers import LSTM
@@ -31,10 +32,21 @@ def data_pipeline(path):
 
     return processed_df
 
-def split_to_tain_valid(df,output_length, shift):
+def split_data(df,output_length, shift):
     '''
-    split into train and valid datasets
+    split raw dataset into training, validation, and test sets.
+    df : raw dataset
+    output_length: the number days we would like to predict
+    shift: recurrent cell numbers
     '''
+    train_size = df.shape[0] - (output_length+shift)
+    test_size  = df.shape[0] - train_size
+    train = df.iloc[:train_size,:]
+    test  = df.iloc[-test_size:,:]
+    valid = df.iloc[-output_length:,:]
+    return train, test, valid
+
+
 
 
 
@@ -52,10 +64,10 @@ def window_generator(X, y, time_steps=1):
         output.append(y.iloc[i + time_steps])
     return np.array(input),np.array(output)
 
-def lstm_model(X_train):
+def lstm_model(X_train,lstm_units):
     model = Sequential()
     model.add(LSTM(
-            units=128,
+            units = lstm_units,
             input_shape=(X_train.shape[1], X_train.shape[2])
             ))
     model.add(Dense(units=X_train.shape[2]*2))
@@ -65,4 +77,4 @@ def lstm_model(X_train):
                 optimizer='Adam') 
     return model
 
-        
+
