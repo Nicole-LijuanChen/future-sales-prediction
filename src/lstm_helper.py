@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout, Activation
+from tensorflow.keras.layers import LSTM
 
 # path ='data/lstm_data.csv'
 
@@ -28,11 +31,38 @@ def data_pipeline(path):
 
     return processed_df
 
+def split_to_tain_valid(df,output_length, shift):
+    '''
+    split into train and valid datasets
+    '''
+
+
+
+
 def window_generator(X, y, time_steps=1):
+    '''
+    Efficiently generate batches of these windows from the training and test data
+    Split windows of features into a (features, labels) pairs
+    reshape X to [samples, time_steps, n_features]
+    '''
     input, output = [], []
     for i in range(len(X) - time_steps):
         v = X.iloc[i:(i + time_steps)].values
         input.append(v)
         output.append(y.iloc[i + time_steps])
-        #print(Xs[-1], ys[-1])  
-    return np.array(input), np.array(output)
+    return np.array(input),np.array(output)
+
+def lstm_model(X_train):
+    model = Sequential()
+    model.add(LSTM(
+            units=128,
+            input_shape=(X_train.shape[1], X_train.shape[2])
+            ))
+    model.add(Dense(units=X_train.shape[2]*2))
+    model.add(Dense(units=X_train.shape[2]))
+    model.compile(
+                loss='mse',
+                optimizer='Adam') 
+    return model
+
+        

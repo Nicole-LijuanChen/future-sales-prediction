@@ -3,6 +3,7 @@ from sklearn.pipeline import Pipeline
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import pandas as pd
 import numpy as np
+from sklearn.metrics import mean_squared_error
 
 
 def reindex_to_data_frame(summary_series, df, freq):
@@ -48,4 +49,9 @@ def plot_acf_and_pacf(series, axs, lags=24*2):
     """
     _ = plot_acf(series, ax=axs[0], lags=lags)
     _ = plot_pacf(series, ax=axs[1], lags=lags)
+
+def rmse_calculate(y_test,y_pred):
+    mse  = mean_squared_error(y_test,y_pred)
+    rmse = np.sqrt(mse )
+    return rmse
 
