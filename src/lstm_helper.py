@@ -28,7 +28,11 @@ def data_pipeline(path):
 
     return processed_df
 
-# processed_df = data_pipeline(path)
-
-# print(processed_df.shape)
-# print(processed_df.head())
+def window_generator(X, y, time_steps=1):
+    input, output = [], []
+    for i in range(len(X) - time_steps):
+        v = X.iloc[i:(i + time_steps)].values
+        input.append(v)
+        output.append(y.iloc[i + time_steps])
+        #print(Xs[-1], ys[-1])  
+    return np.array(input), np.array(output)
