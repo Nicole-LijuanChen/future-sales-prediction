@@ -57,6 +57,21 @@ def rmse_calculate(y_test,y_pred):
     rmse = np.sqrt(mse )
     rmse = round(rmse, 2)
     return rmse
+def rmse_comp(df):
+    lenth = df.shape[1]
+    rmse_lst =[rmse_calculate(df.actuals,df.iloc[:,i]) for i in range(lenth)]
+    df_rmses = pd.DataFrame({'names':df.columns,'RMSE_or_mean':rmse_lst})
+    df_rmses.iloc[0,0]='actuals_mean'
+    df_rmses.iloc[0,1]=df.actuals.mean()
+
+    df_rmses=df_rmses.sort_values(by='RMSE_or_mean', ascending=False)
+    df_rmses=df_rmses.reset_index(drop=True)
+    return df_rmses
+
+
+def plot_trend_data(ax, name, series):
+    ax.plot(series.index, series.values)
+    ax.set_title("Sales Trend For {}".format(name))
 
 def plot_results(predicted_data, true_data, figtitle):
     ''' use when predicting just one analysis window '''
@@ -73,9 +88,9 @@ def plot_results(predicted_data, true_data, figtitle):
     # print('Plot saved.')
 
 
-def plot_results_multiple(predicted_data, true_data, labels_width, figtitle):
+def plot_results_multiple(predicted_data, true_data, labels_width, figtitle,num_cols=2):
     ''' use when predicting multiple analyses windows in data '''
-    fig, axes = plt.subplots(nrows=np.ceil(labels_width/2).astype(int), ncols=2, dpi=150, figsize=(15,10))
+    fig, axes = plt.subplots(nrows=np.ceil(labels_width/2).astype(int), ncols=num_cols,dpi=150, figsize=(15,10))
     for i, ax in enumerate( axes.flatten()):
         predicted_data.iloc[:,i].plot(legend=True, ax=ax,linestyle='--',color='darkorange').autoscale(axis='x',tight=True)
         true_data.iloc[:,i].plot(legend=True, ax=ax, label=true_data.columns[i]+'_actuals',color='deepskyblue');
@@ -94,4 +109,25 @@ def plot_results_multiple(predicted_data, true_data, labels_width, figtitle):
     plt.close()
     # print('Plot saved.')
 
-        
+def plot_forecasr_multiple(df_lts,figtitle,num_rows=2):     
+    fig, axes = plt.subplots(nrows=num_rows, ncols=1, dpi=150, figsize=(15,20))
+
+    for i, ax in enumerate( axes.flatten()):
+        col = random.randint(1,df_lts[3].shape[1])
+        df_lts[0][df_lts[0].columns[col]].plot(legend=True, ax=ax,linestyle='--',color='darkorange',label='VAR').autoscale(axis='x',tight=True)
+        df_lts[1][df_lts[1].columns[col]].plot(legend=True, ax=ax,linestyle=':',label='LSTM_10').autoscale(axis='x',tight=True)
+        df_lts[2][df_lts[2].columns[col]].plot(legend=True, ax=ax,linestyle='-.',label='LSTM_500').autoscale(axis='x',tight=True)
+        df_lts[3][df_lts[3].columns[col]].plot(legend=True, ax=ax,color='deepskyblue',label='Actuals');
+        ax.set_title( f'{df_lts[3].columns[col]} fc vs Actuals')
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('none')
+        ax.spines["top"].set_alpha(0)
+        ax.tick_params(labelsize=10)
+
+    fig.suptitle(figtitle, fontsize=20)
+    fig.tight_layout()
+    fig.subplots_adjust(top=0.92);
+    plt.savefig('images/3_models_Forecast_VS_Actuals.png')
+    plt.show()
+    plt.close()
+    print('Plot saved.')
