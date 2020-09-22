@@ -3,6 +3,7 @@ from sklearn.pipeline import Pipeline
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import pandas as pd
 import numpy as np
+import random
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 
@@ -66,26 +67,31 @@ def plot_results(predicted_data, true_data, figtitle):
     plt.plot(predicted_data, label='Prediction')
     plt.legend()
     plt.title(figtitle)
-    plt.savefig('images/' + figtitle + '.png')
+    # plt.savefig('images/' + figtitle + '.png')
     plt.show()
     plt.close()
-    print('Plot saved.')
+    # print('Plot saved.')
 
 
-def plot_results_multiple(predicted_data, true_data, prediction_len, figtitle):
+def plot_results_multiple(predicted_data, true_data, labels_width, figtitle):
     ''' use when predicting multiple analyses windows in data '''
-    fig = plt.figure(facecolor='white',figsize =(18,10))
-    ax = fig.add_subplot(111)
-    ax.plot(true_data, label='True Data')
-    # Pad the list of predictions to shift it in the graph to its correct start
-    for i, data in enumerate(predicted_data):
-        if i != 0:
-            padding = [None for p in range(i * prediction_len)]
-            plt.plot(padding + data, label='Prediction')
-            plt.legend()
-    plt.title(figtitle)
+    fig, axes = plt.subplots(nrows=np.ceil(labels_width/2).astype(int), ncols=2, dpi=150, figsize=(15,10))
+    for i, ax in enumerate( axes.flatten()):
+        predicted_data.iloc[:,i].plot(legend=True, ax=ax,linestyle='--',color='darkorange').autoscale(axis='x',tight=True)
+        true_data.iloc[:,i].plot(legend=True, ax=ax, label=true_data.columns[i]+'_actuals',color='deepskyblue');
+        ax.set_title( f'{predicted_data.columns[i]} vs Actuals')
+        ax.xaxis.set_ticks_position('none')
+        ax.yaxis.set_ticks_position('none')
+        ax.spines["top"].set_alpha(0)
+        ax.tick_params(labelsize=6)
+
+    fig.suptitle(figtitle, fontsize=16)
+    fig.tight_layout()
+    fig.subplots_adjust(top=0.88);
+    
     # plt.savefig(figtitle + '.png')
     plt.show()
     plt.close()
     # print('Plot saved.')
+
         
