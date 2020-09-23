@@ -258,39 +258,14 @@ Feature Importance
 
 
 
-### AS a guest:
-    - When you travel to New York, living in Brooklyn is a good choice.
-      Manhattan and Brooklyn are both close to New York’s commercial centers, and both have many listings.
-      However, the average listing price in Brooklyn is 34% cheaper than those in Manhattan($118 VS S188).
-
-    - If cost saving is your main consideration, you might choose a Private room in the room type. 
-        Because the average listing price of an apartment is 2.3 times that of a private room($195 VS S85). 
-        Moreover, although the average listing price of a shared room is cheapest, 
-        there are fewer listings(1160 outof 48895 ), and only $17 cheaper than a Private room.
-
-
-### AS a host:
-    - When you can't change the area where the house is, you could 
-      increase the listing price by increasing the total numbers of 
-       days listing is avaliable out of 365.
-
-    - Also, you could reduce the required minimun nights.
-
-    - Describe your listing as specific as possible in the listing name, 
-       which may help you attract customers. Such as room type, 
-       neighborhood, business district name.
-
-
-
-
-
-
-
 <!-- SECTION 5 -->
-# Future Steps
-Source: kaggle.com
-Next, I would like to search some related dataset, such as: the ratings, the reviews, numbers of booking. And then analyze the key fetures for customers to choose a listing.
+# Reference
 
+##### https://www.statsmodels.org/dev/vector_ar.html#var
+##### https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/
+##### https://machinelearningmastery.com/how-to-develop-lstm-models-for-time-series-forecasting/
+##### https://www.kaggle.com/alexdance/store-item-combination-part-6-deep-learning
+##### https://www.tensorflow.org/tutorials/structured_data/time_series
 
 
 
