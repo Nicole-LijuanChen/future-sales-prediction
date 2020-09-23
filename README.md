@@ -232,14 +232,15 @@ According the correlation matrix and sales trends plot, we could make some hypot
 srouce: statsmodels.org
 
 ### Check for Stationarity and Make the Time Series Stationary
- - Check Perform Trend-Seasonal-Residual decomposition
- - ADF Test
-    P-Value <= 0.05
-    difference
- -Differencing
- -Fit the model and coefficients
- 
-   choose lag =365
+- Check Perform Trend-Seasonal-Residual decomposition
+
+- ADF Test
+    P-Value <= 0.05 is Stationary
+    
+-Differencing
+
+-Fit the model and coefficients
+	choose lag =365
    	model = VAR(differenced)
 	model_fitted = model.fit(365)
 	# Input data for forecasting
@@ -248,13 +249,13 @@ srouce: statsmodels.org
  -Invert the transformation to get the real forecast
  
 ### Performance
-    - Evaluate model By RMSE
+- Evaluate model By RMSE
     
-    <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/RMSE_VS_Actuals_mean.png' width='600' height='auto'></img>
+ <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/RMSE_VS_Actuals_mean.png' width='600' height='auto'></img>
+
+-Performance by store-item
     
-    -Performance by store-item
-    
-    <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Forecast_VS_Actuals_by_random_store-item.png' width='600' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Forecast_VS_Actuals_by_random_store-item.png' width='600' height='auto'></img>
     
 
 
