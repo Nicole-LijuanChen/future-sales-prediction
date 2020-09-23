@@ -3,7 +3,7 @@
 <div class='header'> 
 <!-- Your header image here -->
 <div class='headingImage' id='mainHeaderImage' align="center">
-    <img src="https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/forecasting.jpg" width='1200' height='500' ></img>
+    <img src="https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/forecasting.jpg" width='1000' height='500' ></img>
 </div>
 
 <!-- Put your badges here, either for fun or for information -->
@@ -79,11 +79,6 @@ When linking section titles with spaces in between, you must use a '-' (dash) to
 ## Background & Motivation
 Forecasting plays an important role in many business plans and decisions. Such as: scheduling and planning the production depend on forecasting; one supermarket does or not increase the inventory of a specific product according to forecasting; transportation and storage costs are affected by the accuracy of forecasting. Even, the forecast of 3 to 5 years will affect whether a boss opens a new supermarket or builds a new production plant.
 
-
-<img src='' width='800' height='auto'></img>
-
-
-
 ## Goal
 
 In this project, I will develop a model to predict 3 months of item-level sales data at different store locations.
@@ -131,7 +126,7 @@ Extract some features from datetime, such as : 'year', 'month', 'day_of_week','w
 #### Get some intuitive sense of the trends response to stores and items
 
 <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/correlation_matrix.png' width='600' height='auto'></img>
-<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/correlation_matrix.png' width='600' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/sales_trends.png' width='600' height='auto'></img>
 
 According the correlation matrix and sales trends plot, we could make some hypotheses for the sales pattern:
 	1. There was an increase in the sales as the years pass by.
@@ -143,26 +138,24 @@ According the correlation matrix and sales trends plot, we could make some hypot
 
 #### Yealy sales
 
-<img src='' width='600' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/sales_by_year.png' width='600' height='auto'></img>
 
 #### Monthly sales
 
-<img src='' width='600' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/sales_by_month.png' width='600' height='auto'></img>
 
 #### day of week sales
 
-<img src='' width='600' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/sales_by_dayofweek.png' width='600' height='auto'></img>
 
 #### weekend sales
 
-<img src='' width='600' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/sales_by_weekend.png' width='600' height='auto'></img>
 
 #### daily sales
 
-<img src='' width='800' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/sales_by_day.png' width='800' height='auto'></img>
 
-
-<img src=''></img>
 
 
 #### Navigate average sales by store
@@ -177,16 +170,7 @@ According the correlation matrix and sales trends plot, we could make some hypot
 <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Sales_distribution_for_items.png'></img>
 <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Sales_trend_by_items.png'></img>
 
-The trends by item and store are similar. It looks good for model building.
-
-
-
-#### Navigate "minimum_nights": required minimum nights stay
-<center class="half">
-    <img src="" width="400"/>
-    <img src="" width="400"/>
-</center>
-
+### The trends by item and store are similar. It looks good for model building.
 
 
 <!-- SECTION 2 -->
@@ -247,14 +231,6 @@ The trends by item and store are similar. It looks good for model building.
     <img src='' width='600' height='auto'></img>
     <img src='' width='600' height='auto'></img>
     
-
-
-Feature Importance
-<img src='' width='600' height='auto'></img>
-<center class="half">
-    <img src="" width="400"/>
-    <img src="" width="400"/>
-<center>
 
 
 
