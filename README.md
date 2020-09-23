@@ -91,7 +91,7 @@ An accurate forecast for the next three months would greatly facilitate the mana
 
 ## My results
 
-<img src='' width='800' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/VAR_forecast_vs_Actuals_by_day.png' width='800' height='auto'></img>
 
 My results are encouraging, as The final model not only performed better than other models in the next three-month forecast, but also performed stable in the sales forecast for the past year.
 
@@ -101,56 +101,61 @@ My results are encouraging, as The final model not only performed better than ot
 # EDA
 ## Raw data
 
-<img src='' width='800' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/raw_data.png' width='600' height='auto'></img>
 
-raw data information:
+Raw data information:
+
 date - every date of items sold
+
 store - unique number of every shop(1-10)
+
 item - unique number of every item(1-50)
+
 sales - items sold on a particular day and a particular store
+
 -4 years observed data, no missing values, it's good.
 
 
 
-Scan the data infomation:
-
-<img src='' width='800' height='auto'></img>
 
 ## Feature engineering
 Before we dive into any statistical or machine learning methods for predicting future data, let's take a look at the data we already have. 
 
 Extract some features from datetime, such as : 'year', 'month', 'day_of_week','weekend' etc.
 
-<img src='' width='800' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/feature_engineering.png' width='600' height='auto'></img>
 
 
 
 ## Data understanding through visualizations
 #### Get some intuitive sense of the trends response to stores and items
 
-<img src='' width='800' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/correlation_matrix.png' width='600' height='auto'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/correlation_matrix.png' width='600' height='auto'></img>
 
-
-According the scatter matrix, 
+According the correlation matrix and sales trends plot, we could make some hypotheses for the sales pattern:
+	1. There was an increase in the sales as the years pass by.
+	2. Sales were affected by the month. Sales was higher in summer.
+	3. Sales were more as compared to weekends.
+    
 
 ### Take a closer look at the data by navigate different frequency
 
-<img src=''></img>
 #### Yealy sales
 
-<img src='' width='800' height='auto'></img>
+<img src='' width='600' height='auto'></img>
 
 #### Monthly sales
 
-<img src='' width='800' height='auto'></img>
+<img src='' width='600' height='auto'></img>
 
 #### day of week sales
 
-<img src='' width='800' height='auto'></img>
+<img src='' width='600' height='auto'></img>
 
 #### weekend sales
 
-<img src='' width='800' height='auto'></img>
+<img src='' width='600' height='auto'></img>
 
 #### daily sales
 
@@ -160,64 +165,55 @@ According the scatter matrix,
 <img src=''></img>
 
 
-#### Trends comparison
-<center class="half">
-    <img src="" width="400"/><img src="" width="400"/>
-</center>
-
 #### Navigate average sales by store
-<img src=''></img>
+
+<center class="half">
+    <img src="https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Sales_distribution_for_stores.png" width="400"/>
+    <img src="https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Sales_trend_by_stores.png" width="400"/>
+</center>
 
 #### Navigate average sales by item
 
-<img src=''></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Sales_distribution_for_items.png'></img>
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Sales_trend_by_items.png'></img>
 
-Mean sales trend by item 
+The trends by item and store are similar. It looks good for model building.
 
-<img src=''></img>
+
 
 #### Navigate "minimum_nights": required minimum nights stay
 <center class="half">
-    <img src="" width="300"/>
-    <img src="" width="300"/>
-    <img src="" width="300"/>
+    <img src="" width="400"/>
+    <img src="" width="400"/>
 </center>
-
-#### Navigate "name": listing name
-
-<img src=''></img>
-
-
-#### Closer look at "price" : listing price
-
-<img src="" width='800' height='auto'/>
-
-<center class="half">
-    <img src="" height="250"/>
-    <img src="" height="250"/>
-</center>
-
-#### There are just less than 0.5% listing price is greater than $1,000
-
-
-
 
 
 
 <!-- SECTION 2 -->
-# Feature engineering
-### - Fill Nan values using the specified method.
-        According to data.info, there are 4 cloumns missing some values.
-        name,host_name,last_review and reviews_per_month
+# Modeling
+### - ARIMA Model
+
+      ARIMA is a popular and widely used statistical method for time series forecasting. But it is only used to predict univariate time series
+      Pass
     
-### - Convert categorical variables into numeric variables(0/1).
-        According to data understanding, there are 3 important categorical features:
-        neighbourhood_group,neighbourhood,room_type
+### - LSTM 500 output  Neural Networks Model
 
-### - Drop some columns that have a low correlation with "price".
-     id, host_id, host_name ....
+      <img src='' width='600' height='auto'></img>  
+      There are a lot parameter could be tuning. 
+      LSTM NN model is good at predict 1 or few output time series. 
+      
+      However, when the y labels increase to 500, the model performance is not so good. It shows a simple linear relationship.
+### - LSTM 10 output Neural Networks Model 
 
-The processed data:
+      <img src='' width='600' height='auto'></img> 
+      After exploring 500, 50, 20, 10 output LSTM NN models, the 10-output model is the best.
+        
+### - VAR Model
+      
+#### Vactor Autoregressions is useful for simultaneously modeling and analyzing multiple time series.
+    <img src='' width='600' height='auto'></img> 
+####The VAR class assumes that the passed time series are stationary. Non-stationary or trending data can often be transformed to be stationary by first-differencing or some other method. For direct analysis of non-stationary time series, a standard stable VAR(p) model is not appropriate(https://www.statsmodels.org/dev/_images/statsmodels-logo-v2-horizontal.svg).
+
 
 <img src="" width='800' height='auto'></img>
 
@@ -225,71 +221,41 @@ The processed data:
 
 
 <!-- SECTION 3 -->
-# Modeling
-### Define models
-- Try 4 regressor models
+# Models Comparison
+### RMES by total forcasting (10 stores, 50 items, 3 months)
 
-<img src="" width='800' height='auto'></img>   
+<img src="https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/3_models_RMSEs.png" width='600' height='auto'></img>   
 
+### Performance by store-item
 
-- Evaluate models
-
-<img src= width='800' height='auto'></img>
+<img src="https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/3_models_Forecast_VS_Actuals.png" width='800' height='auto'></img>
 
 ### Feature engineering again
-- Drop outliers
-    - price:
-        The mean of price is 152.72, but the max price is 10000 that is not a reasonal price for me. 
-        There are just less than 0.5% listing price is greater than $1,000.
-        #### Drop the rows whose price is greater than 1000 and equal to 0
 
-    - minimum_nights: required minimun nights stay
-        The minimum night stay policy on Airbnb is the minimum number of nights that a guest can book a short-term vacation rental. 
-        Short-term stays means less than 30 nights at a time.
-        #### Replace the df['minimum_nights'] >30 with 30
-- Drop low correlation columns
-    - latitude
-    - longitude
-- Convert text variable into numeric variables
-    - name -> neme_length
-- Look at correlation again
 ###    Before  VS  After
-<center class="half">
-    <img src="" width="700"/>
-    <img src="" width="700"/>
-<center>
 
-
-
-- Evaluate models again
-
-The models performance have improved!!
-
-<img src='' width='800' height='auto'></img>
-
-### Try best hyperparameters
-
-
-<img src="" width="600"/>
-<img src="" width="600"/>
-<img src="" width="600"/>
-
-
-### create final model: Random Forest Regressor
-
-<img src='' width='800' height='auto'></img>
-
-### Evaluate model
-
-<img src='' width='800' height='auto'></img>
 
 
 <!-- SECTION 4 -->
 
-# Bussiness insights
+# Final Model
+### VAR Model
+
+### Performance
+    - Evaluate model By RMSE
+    
+    <img src='' width='600' height='auto'></img>
+    <img src='' width='600' height='auto'></img>
+    
+
 
 Feature Importance
 <img src='' width='600' height='auto'></img>
+<center class="half">
+    <img src="" width="400"/>
+    <img src="" width="400"/>
+<center>
+
 
 
 ### AS a guest:
