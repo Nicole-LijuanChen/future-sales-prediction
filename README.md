@@ -223,13 +223,38 @@ According the correlation matrix and sales trends plot, we could make some hypot
 <!-- SECTION 4 -->
 
 # Final Model
-### VAR Model
 
+### VAR Model
+###  Methods
+
+<img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/VAR_processes.png' width='600' height='auto'></img>
+
+srouce: statsmodels.org
+
+### Check for Stationarity and Make the Time Series Stationary
+ - Check Perform Trend-Seasonal-Residual decomposition
+ - ADF Test
+    P-Value <= 0.05
+    difference
+ -Differencing
+ -Fit the model and coefficients
+ 
+   choose lag =365
+   	model = VAR(differenced)
+	model_fitted = model.fit(365)
+	# Input data for forecasting
+	forecast_input  = differenced.values[-365:]
+	forecast_output = model_fitted.forecast(y=forecast_input, steps=92)
+ -Invert the transformation to get the real forecast
+ 
 ### Performance
     - Evaluate model By RMSE
     
-    <img src='' width='600' height='auto'></img>
-    <img src='' width='600' height='auto'></img>
+    <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/RMSE_VS_Actuals_mean.png' width='600' height='auto'></img>
+    
+    -Performance by store-item
+    
+    <img src='https://github.com/Nicole-LijuanChen/future-sales-prediction/blob/master/images/Forecast_VS_Actuals_by_random_store-item.png' width='600' height='auto'></img>
     
 
 
