@@ -68,6 +68,13 @@ def rmse_comp(df):
     df_rmses=df_rmses.reset_index(drop=True)
     return df_rmses
 
+    
+def plot_acf_and_pacf(series, axs, lags=24*2):
+    """Plot the autocorrelation and partial autocorrelation plots of a series
+    on a pair of axies.
+    """
+    _ = plot_acf(series, ax=axs[0], lags=lags)
+    _ = plot_pacf(series, ax=axs[1], lags=lags)
 
 def plot_trend_data(ax, name, series):
     ax.plot(series.index, series.values)
@@ -78,14 +85,15 @@ def plot_results(predicted_data, true_data, figtitle):
     fig = plt.figure(facecolor='white',figsize =(18,10))
 
     ax = fig.add_subplot(111)
-    ax.plot(true_data, label='True Data')
-    plt.plot(predicted_data, label='Prediction')
+    ax.plot(true_data, label='Actuals',color ='deepskyblue')
+    plt.plot(predicted_data, label='Forecast',color='darkorange')
     plt.legend()
-    plt.title(figtitle)
-    # plt.savefig('images/' + figtitle + '.png')
+    plt.title(figtitle,fontsize=20)
+    fig.subplots_adjust(top=0.92)
+    plt.savefig('images/' + figtitle + '.png')
     plt.show()
     plt.close()
-    # print('Plot saved.')
+    print('Plot saved.')
 
 
 def plot_results_multiple(predicted_data, true_data, labels_width, figtitle,num_cols=2):
