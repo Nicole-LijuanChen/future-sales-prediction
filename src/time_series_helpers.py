@@ -79,6 +79,7 @@ def plot_acf_and_pacf(series, axs, lags=24*2):
 def plot_trend_data(ax, name, series):
     ax.plot(series.index, series.values)
     ax.set_title("Sales Trend For {}".format(name))
+    ax.tick_params(axis='both', which='major', labelsize=18)
 
 def plot_results(predicted_data, true_data, figtitle):
     ''' use when predicting just one analysis window '''
@@ -89,6 +90,7 @@ def plot_results(predicted_data, true_data, figtitle):
     plt.plot(predicted_data, label='Forecast',color='darkorange')
     plt.legend()
     plt.title(figtitle,fontsize=20)
+    ax.tick_params(axis='both', which='major', labelsize=18)
     fig.subplots_adjust(top=0.92)
     plt.savefig('images/' + figtitle + '.png')
     plt.show()
@@ -126,15 +128,17 @@ def plot_forecasr_multiple(df_lts,figtitle,num_rows=2):
         df_lts[1][df_lts[1].columns[col]].plot(legend=True, ax=ax,linestyle=':',label='LSTM_10').autoscale(axis='x',tight=True)
         df_lts[2][df_lts[2].columns[col]].plot(legend=True, ax=ax,linestyle='-.',label='LSTM_500').autoscale(axis='x',tight=True)
         df_lts[3][df_lts[3].columns[col]].plot(legend=True, ax=ax,color='deepskyblue',label='Actuals');
-        ax.set_title( f'{df_lts[3].columns[col]} fc vs Actuals')
+        ax.set_title( f'{df_lts[3].columns[col]} fc vs Actuals', fontsize=18)
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('none')
         ax.spines["top"].set_alpha(0)
-        ax.tick_params(labelsize=10)
+        ax.set_xlabel('date',fontsize=18)
+        ax.set_ylabel('sales',fontsize=18)
+        ax.tick_params(axis='both', which='major', labelsize=18)
 
     fig.suptitle(figtitle, fontsize=20)
     fig.tight_layout()
-    fig.subplots_adjust(top=0.92);
+    fig.subplots_adjust(top=0.9);
     plt.savefig('images/3_models_Forecast_VS_Actuals.png')
     plt.show()
     plt.close()
